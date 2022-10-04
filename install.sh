@@ -7,9 +7,10 @@ then
     echo "cant find WEGA on /var/WEGA. Please install WEGA first" 
     exit 1
 fi
-mkdir -p /var/web-hpg/web-hpg/
-cd /var/web-hpg/web-hpg/
+mkdir -p /var/web-hpg/
+
 git clone  https://github.com/WEGA-project/web-hpg.git /var/web-hpg
+cd /var/web-hpg/web-hpg/
 MYSQL=$(which mysql)
 DB_PASS=$(echo "<?php include '/var/WEGA/db.php'; echo \$password;" | /usr/bin/php)
 echo "Create wega-hpg db name: $MAIN_DB_NAME"
