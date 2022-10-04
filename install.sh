@@ -50,6 +50,9 @@ python manage_prod.py migrate --noinput
 systemctl daemon-reload
 systemctl enable wega-hpg.service
 systemctl restart wega-hpg.service
+
+cp /var/web-hpg/app/scripts/wega-hpg.conf /var/WEGA/apache/wega-hpg.conf
+
 systemctl reload apache2
 git config --global --add safe.directory /var/WEGA
 echo "##########################################################"
