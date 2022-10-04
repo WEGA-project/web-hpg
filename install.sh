@@ -11,7 +11,7 @@ mkdir -p /var/web-hpg/
 
 git clone  https://github.com/WEGA-project/web-hpg.git /var/web-hpg
 cd /var/web-hpg/app/
-git update
+git fetch
 MYSQL=$(which mysql)
 DB_PASS=$(echo "<?php include '/var/WEGA/db.php'; echo \$password;" | /usr/bin/php)
 echo "Create wega-hpg db name: $MAIN_DB_NAME"
