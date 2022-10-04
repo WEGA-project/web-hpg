@@ -1,0 +1,218 @@
+{% extends 'project/base.html' %}
+{% load getattr %}
+{% load render_table from django_tables2 %}
+{% block extra_js_up %}
+    <script>
+        var recalc_url = "{% url 'plant_profile_precalc' instance.pk  %}";
+
+    </script>
+{% endblock %}
+{% block content %}
+
+    <div class="container">
+
+
+        <div class="row">
+            {% if form.errors %}
+                {{ form.errors }}
+            {% endif %}
+        </div>
+
+
+        <div class="row">
+            <form action="{% url "plant_profile_edit" instance.pk %}" novalidate method="post"
+                  class="m-auto d-flex flex-column" enctype="multipart/form-data"
+                  id="form-edit">
+
+
+                <div class="row flex-row">
+                    <div class="row">
+                        <div class="mb-3  col-lg-2 p-1">
+                            <label for="{{ form.name.label.id_for_label }}"
+                                   class="form-label">{{ form.name.label }}</label>
+                            {{ form.name }}
+                            <div class="error">{{ form.name.errors }}</div>
+                        </div>
+                        <div class="mb-3  col-lg-3 p-1">
+                            <label for="{{ form.calc_mode.label.id_for_label }}"
+                                   class="form-label">{{ form.calc_mode.label }}</label>
+                            {{ form.calc_mode }}
+                            <div class="error">{{ form.calc_mode.errors }}</div>
+                        </div>
+
+                        <div class="mb-3  col-lg-1 p-1">
+                            <label for="{{ form.litres.label.id_for_label }}"
+                                   class="form-label">{{ form.litres.label }}</label>
+                            {{ form.litres }}
+                            <div class="error">{{ form.litres.errors }}</div>
+                        </div>
+
+                        <div class="mb-3  col-lg-3 p-1">
+                            <label for="{{ form.micro_calc_mode.label.id_for_label }}"
+                                   class="form-label">{{ form.micro_calc_mode.label }}</label>
+                            {{ form.micro_calc_mode }}
+                            <div class="error">{{ form.micro_calc_mode.errors }}</div>
+                        </div>
+
+
+                        <div class="mb-3  col-lg-2 p-1">
+                            <label class="form-label" for="">Солей в граммах:</label>
+                            <input id="id_salt_grams"
+                                   value="{{ instance.sum_salt_grams|hpg_float_format }}"
+                                   class="form-control precalc h-auto" disabled>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <p class="npk-bold precalc" id="id_npk_formula">{{ instance.calc_npk_formula }}</p>
+                        <p class="npk-bold precalc" id="id_npk_magazine">{{ instance.get_npk_magazine }}</p>
+                        <p class="npk-bold precalc" id="id_get_profile_str">{{ instance.get_profile_str }}</p>
+
+
+                    </div>
+                    <div class="row">
+
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="row">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-link active" id="tabmacro-tab" data-bs-toggle="tab" data-bs-target="#tabmacro"
+                               data-hash-target="#macro"
+                               role="tab" aria-controls="tabmacro" aria-selected="true">Макро
+                            </a>
+                            <a class="nav-link" id="tabmicro-tab" data-bs-toggle="tab" data-bs-target="#tabmicro"
+                               data-hash-target="#micro"
+                               role="tab" aria-controls="tabmicro" aria-selected="true">Микро
+                            </a>
+
+                            <a class="nav-link" id="tabconcentrat-tab" data-bs-toggle="tab"
+                               data-bs-target="#tabconcentrat"
+                               data-hash-target="#concentrat"
+
+
+                               role="tab" aria-controls="tabconcentrat" aria-selected="true">Концентраты
+                            </a>
+
+                            <a class="nav-link" id="tabmixer-tab" data-bs-toggle="tab" data-bs-target="#tabmixer"
+                               data-hash-target="#mixer"
+                               role="tab" aria-controls="tabmixer" aria-selected="true">Изготовление
+                            </a>
+
+                             <a class="nav-link" id="tabcorrector-tab" data-bs-toggle="tab" data-bs-target="#tabcorrector"
+                               data-hash-target="#corrector"
+                               role="tab" aria-controls="tabcorrector" aria-selected="true">Корректор
+                            </a>
+
+
+
+                            <a class="nav-link" id="tabprice-tab" data-bs-toggle="tab" data-bs-target="#tabprice"
+                               data-hash-target="#price"  role="tab" aria-controls="tabprice" aria-selected="true">Цена
+                            </a>
+
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="tabmacro" role="tabpanel"
+                             aria-labelledby="tabmacro-tab">
+                            {% include 'calc/profile.html' with macro=True title="Макро профиля" %}
+                        </div>
+                        <div class="tab-pane fade " id="tabmicro" role="tabpanel" aria-labelledby="tabmicro-tab">
+                            {% include 'calc/profile.html' with micro=True title="Микро профиля" %}
+                        </div>
+
+                        <div class="tab-pane fade " id="tabconcentrat" role="tabpanel"
+                             aria-labelledby="tabconcentrat-tab">
+                            {% include 'calc/profile.html' with concentrate=True title="Монорастворы и концентраты" %}
+                        </div>
+
+                        <div class="tab-pane fade " id="tabmixer" role="tabpanel" aria-labelledby="tabmixer-tab">
+                            {% include 'calc/profile.html' with mixer=True title="Изготовление" %}
+                        </div>
+
+                        <div class="tab-pane fade " id="tabcorrector" role="tabpanel" aria-labelledby="tabcorrector-tab">
+                            {% include 'calc/profile.html' with corrector=True title="Корерктор" %}
+                        </div>
+
+                        <div class="tab-pane fade " id="tabprice" role="tabpanel" aria-labelledby="tabprice-tab">
+                            {% include 'calc/profile.html' with price=True title="Цена" %}
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+
+            </form>
+
+            <div class="row mt-5 mb-5">
+                <div class="col-lg-12 m-auto text-center">
+
+
+                    <button class="btn btn-primary m-auto" data-bs-toggle="modal"  data-bs-target="#save_history" >
+                        {{ btn_name }} с комментарием
+                    </button>
+                       <button class="btn btn-secondary  m-auto" id="from-btn" type="submit" name="from" value=""
+                                    form="form-edit">
+                                {{ btn_name }}
+                       </button>
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+      <div class="modal fade" id="save_history" tabindex="-1" aria-labelledby="save_historyLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="save_historyLabel">Добавление комментария и фото(необязательно)</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row" id="r_history_text">
+                                  <textarea class="form-control" id="id_history_text" name="history_text" rows="3"
+                                            placeholder="добавил азот т.к. на листьях начали..."></textarea>
+
+                            </div>
+                            <div class="row mt-2 " id="r_history_image">
+                            <input class="form-control" type="file"  multiple  id="photo" name="history_image"
+                                   accept="image/png, image/jpeg" >
+                            </div>
+
+                            </div>
+                        <div class="modal-footer">
+                              <button class="btn btn-primary d-block m-auto" id="edit-btn-modal" type="submit" name="from" value=""
+                                    form="form-edit">
+                                {{ btn_name }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+    <style>
+        @media screen and (max-width: 768px) {
+
+            html {
+                width: 768px;
+                overflow: auto;
+            }
+        }
+
+    </style>
+
+{% endblock %}

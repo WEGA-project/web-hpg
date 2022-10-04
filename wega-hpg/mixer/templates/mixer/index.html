@@ -1,0 +1,27 @@
+{% extends 'project/base.html' %}
+{% load render_table from django_tables2 %}
+{% block content %}
+    <h1 class="text-center">{{title}}</h1>
+    <div class="container">
+
+    <div class="row">
+        <div class="col-12">
+            <button type="button" class="btn btn-primary mw-25 d-inline-block" data-bs-toggle="modal"  data-bs-target="#add_plant_profile">
+                <i class="bi bi-plus-circle"></i>
+            </button>
+        </div>
+    </div>
+
+
+        <div class="row">
+            <div class="col-12">
+                {% render_table table %}
+            </div>
+        </div>
+        {% include 'mixer/modal.html' with id='add_plant_profile' h5="Добавить миксер" btn_name=btn_name form=form action="mixer_add" %}
+
+
+
+    </div>
+
+{% endblock %}

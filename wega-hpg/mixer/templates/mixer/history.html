@@ -1,0 +1,51 @@
+{% extends 'project/base.html' %}
+{% load render_table from django_tables2 %}
+{% block content %}
+    <h1 class="text-center">{{title}}</h1>
+    <div class="container">
+
+    <div class="row">
+        <div class="col-12">
+            <h3>Суммы план/факт </h3><a href="{% url "mixer_history_clear" mixer.pk %}">Очистить все</a>
+            <p>При нажатии на сумму она будет сброшена в 0, история сохранится. Например, Вы заменили на новый раствор бутылку 5 - жмете на сумму, она сбрасывается в 0 - история сохраняется, а сумма начинается считаться заново за вычетом текущего накопленного</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            {% render_table sum_table %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h3>История</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            {% render_table table %}
+        </div>
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if table.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ table.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ table.page.number }} of {{ table.paginator.num_pages }}.
+            </span>
+
+            {% if table.has_next %}
+                <a href="?page={{ table.next_page_number }}">next</a>
+                <a href="?page={{ table.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    
+
+
+    </div>
+
+{% endblock %}

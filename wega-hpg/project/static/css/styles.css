@@ -1,0 +1,219 @@
+.right {
+    margin-left: auto;
+}
+.login-form{
+    max-width: 600px;
+}
+#carouselExampleIndicators{
+	max-width: 168px;
+}
+.logo {
+	background: url('/static/images/logo.png') no-repeat 10px 5px;
+	width: 70px;
+	height: 60px;
+}
+.container{
+	overflow-x: auto;
+}
+
+
+#id_matrix-ca-n, #id_matrix-ca-p,  #id_matrix-ca-k,  #id_matrix-ca-mg, #id_matrix-mg-k, #id_matrix-mg-ca, #id_matrix-p-k,
+#id_matrix-p-ca, #id_matrix-n-k,  #id_matrix-n-ca, #id_matrix-k-mg {
+	color: blue;
+}
+
+#id_matrix-n-mg, #id_matrix-p-mg, #id_matrix-mg-p  {
+	color: limegreen;
+}
+
+.container-fluid{padding: 0;}
+.col-1-w{
+	width: 10.0%!important;
+}
+.mt-50{
+	margin-top: 65%;
+}
+
+
+input.precalc[type='number']{
+    width: 90px;
+	height: 25px;
+}
+.mw-150px{
+	min-width: 150px;
+}
+
+.w-matrix{
+	width: 76px;
+}
+
+.label-margin-t{
+	    margin-top: 50%;
+}
+
+
+.first-matrix-row {
+	height: 53px;
+}
+
+.first-macro-row {
+	height: 160px;
+}
+.mt-38{
+	margin-top: 38%;
+}
+.n-margin{
+	margin-left: 29%;
+}
+#id_litres{
+	height: auto;
+}
+.h-25px{
+	height: 25px;
+}
+
+.ml-2{
+	margin-left: 2%;
+}
+.salts > .row, .second-matrix-row {
+	height: 30px;
+}
+.height-30{
+		height: 30px;
+}
+.w-18{
+	width:  30.666667%;
+}
+
+.w-elem{
+	    width: auto;
+    min-width: 141px;
+}
+.salt-row:hover{
+	background-color: darkgrey;
+	opacity: 0.8;
+}
+
+
+.w-salt-name{
+	width:auto;
+	min-width: 330px;
+
+}
+
+
+.hpg-green{
+	background-color: #c0dcc0;
+}
+
+input.w-115[type='number']{
+	width: 115px;
+}
+@media screen and (min-width: 1024px) {
+
+
+	input.precalc[type='number']{
+	width: 92px;
+	height: 25px;
+	}
+	input.w-115[type='number']{
+		width: 115px;
+	}
+	.macro-salt > input.precalc[type='number']{
+	width: 95px;
+	height: 25px;
+	}
+
+	.salt-name-formula{display: inline-block;}
+	input.matrix[type='number'] {
+	width: 75px;
+	}
+}
+
+@media screen and (min-width: 768px) and  (max-width: 1024px){
+
+	.mt-38 {
+    margin-top: 56%;
+}
+	.w-salt-name{
+		width:150px;
+	}
+	input.precalc[type='number']{
+	width: 80px;
+	height: 25px;
+	}
+	.macro-salt > input.precalc[type='number']{
+	width: 70px;
+	height: 25px;
+	}
+	.salt-formula{ display: inline-block;}
+
+		.w-salt-name{	min-width: 153px;}
+}
+
+@media screen and (max-width: 768px)  {
+	.n-margin{
+	margin-left: 35%;
+}
+		.mt-38 {
+    margin-top: 56%;
+}
+	.first-macro-row {
+     height:auto;
+}
+	.salts > .row, .second-matrix-row {
+		  height:auto;
+	}
+
+
+
+	div.w-625{
+		width: 6.25%;
+	}
+	div.w-113{
+		width: 11.333333%;;
+	}
+	input.precalc[type='number']{
+
+	width: 70px;
+	height: 25px;
+	}
+	.macro-salt > input.precalc[type='number']{
+	width: 67px;
+	height: 25px;
+	}
+	.salt-formula{ display: inline-block;}
+
+	.w-salt-name{	min-width: 153px; width: 100%;}
+	.w-16{
+		    width: 16%;
+	}
+	/*.micro-w-100{width: 100px!important;}*/
+}
+
+
+@media screen and (max-width: 500px) {
+	.first-matrix-row, .second-matrix-row {
+		height: auto;
+	}
+	.n-margin{
+	margin-left: 35%;
+	}
+
+	.mt-38{
+		margin-top: 48%;
+	}
+	.left-matrix-element{
+		display: none;
+	}
+	.matrix{
+		padding: unset;
+		padding-left: 8px;
+	}
+	.matrix-elements{
+		display: none;
+	}
+	div.w-113{
+		width: 66px;
+	}
+}

@@ -1,0 +1,30 @@
+{% load getattr %}
+
+            <input type="hidden" name="pk" id="pk" value="{{ instance.pk }}">
+            <div class="row">
+                {% csrf_token %}
+                    {% if macro %}
+                        {% include 'calc/calc/macro.html' %}
+                    {% endif %}
+                    {% if micro %}
+                           {% include 'calc/calc/micro.html' %}
+                    {% endif %}
+                    {% if concentrate %}
+                            {% include 'calc/calc/concentrate.html' %}
+                    {% endif %}
+                    {% if mixer %}
+                                         {% include 'calc/calc/mixer.html' with  title="Изготовление" %}
+                    {% endif %}
+
+                    {% if price %}
+                        {% include 'calc/calc/price.html' with  title="Цена" %}
+                    {% endif %}
+
+                    {% if corrector %}
+                        {% include 'calc/calc/corrector.html' with  title="Корректор" %}
+                    {% endif %}
+
+
+            </div>
+
+
