@@ -1,14 +1,20 @@
 from django.urls import path
-from calc.views import plant_profile_history_add, plant_profile_history_del, plant_profile_share_get_history, plant_profiles, edit_plant_profile, \
+from calc.views import plant_profile_history_add, plant_profile_history_del, plant_profile_share_get_history, \
+    plant_profiles, edit_plant_profile, \
     create_plant_profile, \
     plant_profile_del, \
-    upload_plant_profile, plant_profile_precalc, plant_profile_history, plant_profile_share, check_mixer_redirect
+    pp_podgruz, upload_plant_profile, plant_profile_precalc, plant_profile_history, plant_profile_share, \
+    check_mixer_redirect
 
 urlpatterns = [
 
     path('plant_profile/new/', create_plant_profile, name='plant_profile_new'),
     path('plant_profile/from-file/', upload_plant_profile, name='upload_plant_profile'),
     path('plant_profile/<int:pk>/', edit_plant_profile, name='plant_profile_edit'),
+    path('pp_podgruz/<int:pk>/', pp_podgruz, name='pp_podgruz'),
+    
+
+    
     path('plant_profile/share/<int:pk>/', plant_profile_share, name='plant_profile_share'),
     
     path('check_mixer_redirect/<int:pk>/', check_mixer_redirect, name='check_mixer_redirect'),

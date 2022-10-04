@@ -1,0 +1,28 @@
+{% load getattr %}
+<div class="row">
+                       <div class="row">
+                            <h5 class=" ">Подгрузить данные в текущий профиль из выбранного</h5>
+                        </div>
+                        <div class="row  ">
+                            <div class="row">
+                                <div class="col-12">Выберите откуда и что подгрузить.</div>
+                                <div class="col-6  text-center"></div>
+                            </div>
+                            <div class="row">
+                                <form action="{% url "pp_podgruz" instance.pk %}" method="post">
+                                    {% csrf_token %}
+                                {{ pp_from_form.as_p }}
+                                    <p>
+                                        Текущие изменения НЕ сохранятся и страница будет перезагружена и заменены данные на выбранные
+
+                                    </p>
+                                    <p>     <button type="submit" class="btn btn-danger">Подгрузить</button></p>
+                                    </form>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>

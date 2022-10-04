@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django_tables2 import A, RequestConfig
 from wagtail.images.models import Image
 from calc.forms import DelForm, FilterForm, PlantProfileAddForm, PlantProfileEditForm, \
-    PlantProfileSharesForm, PlantProfileUploadForm
+    PlantProfilePodgruzForm, PlantProfileSharesForm, PlantProfileUploadForm
 from calc.models import PlantProfile, PlantProfileHistory, PlantProfileShares
 from calc.tables import CalcColumn, HistoryColumn, ModalBtn, PlatProfileTable, ImageColumn
 from mixer.models import MixerHistory
@@ -27,9 +27,7 @@ def plant_profiles(request):
     context['form'] = PlantProfileAddForm
     context['upload_form'] = PlantProfileUploadForm
     context['filter'] = FilterForm(request.GET)
-    extra_columns = [('name', django_tables2.Column(verbose_name="Название")),
-                         # ('profile_npk_data', PColumn()),
-                         ('ec', django_tables2.Column()),]
+    extra_columns = [('name', django_tables2.Column(verbose_name="Название")), ('ec', django_tables2.Column()),]
     
     columns = ['name']
     filter_form = context['filter']
@@ -548,7 +546,7 @@ def plant_profile_history_add(request, pk):
 
 @login_required
 def edit_plant_profile(request, pk, micro=False):
- 
+    pp_from_form = PlantProfilePodgruzForm(user = request.user)
     context = DataMixin.get_user_context(title=f"Редактор профиля {pk}", btn_name="Сохранить")
     if request.user.is_staff:
         instance = PlantProfile.objects.get(  pk=pk)
@@ -564,6 +562,7 @@ def edit_plant_profile(request, pk, micro=False):
     context['form'] = form
     context['micro'] = micro
     context['instance'] = instance
+    context['pp_from_form'] = pp_from_form
    
     
         
@@ -613,6 +612,68 @@ def edit_plant_profile(request, pk, micro=False):
     
     return render(request, 'calc/edit.html', context=context)
 
+
+def pp_podgruz(request, pk):
+    if request.method=="POST":
+        changed = False
+        form = PlantProfilePodgruzForm(request.POST, user=request.user)
+        if form.is_valid():
+            pp = PlantProfile.objects.get(pk=pk)
+            data = form.cleaned_data
+            p_from = data.get('model_from')
+            
+            
+            if data.get('macro_udobr_persent') == True:
+                for k, i in PlantProfile.salt_dict.items():
+                    for ii in i.get('salt'):
+                        setattr(pp, ii, getattr(p_from, ii) )
+                setattr(pp, 'calc_mode', getattr(p_from, 'calc_mode'))
+                changed= True
+                
+            if data.get('micro_udobr_persent') == True :
+                for i in PlantProfile.salt_micro_persent:
+                    setattr(pp, i, getattr(p_from, i))
+                    
+                # for i in PlantProfile.salt_micro_persent_bor:
+                #     setattr(pp, i, getattr(p_from, i))
+                setattr(pp, 'micro_calc_mode', getattr(p_from, 'micro_calc_mode'))
+                changed = True
+            
+            if data.get('profile_macro') == True :
+                for i in PlantProfile.macro:
+                    setattr(pp, i, getattr(p_from, i))
+                setattr(pp, 'calc_mode', getattr(p_from, 'calc_mode'))
+                changed = True
+    
+            if data.get('profile_micro') == True :
+                for i in PlantProfile.micro:
+                    setattr(pp, i, getattr(p_from, i))
+                setattr(pp, 'micro_calc_mode', getattr(p_from, 'micro_calc_mode'))
+                changed = True
+
+            
+            if data.get('mixer') == True:
+                for i in ["mixer_ip", "mixer_system_number", "mixer"]:
+                    setattr(pp, i, getattr(p_from, i))
+                
+                changed = True
+            
+            if data.get('conc') == True:
+                for i in PlantProfile.concentrate_fields:
+                    setattr(pp, i, getattr(p_from, i))
+                changed = True
+            
+            if data.get('prices') == True:
+                for i in PlantProfile.price_fields:
+                    setattr(pp, i, getattr(p_from, i))
+                changed = True
+                
+            if changed:
+                setattr(pp, "litres", getattr(p_from, "litres"))
+                pp.save()
+    return redirect("plant_profile_edit", pk)
+     
+       
 @login_required
 def plant_profile_del(request, pk):
     context = DataMixin.get_user_context(title="Удаляем профиль", btn_name="Подтвердить")

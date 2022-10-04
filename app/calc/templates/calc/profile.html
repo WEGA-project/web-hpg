@@ -13,7 +13,7 @@
                             {% include 'calc/calc/concentrate.html' %}
                     {% endif %}
                     {% if mixer %}
-                                         {% include 'calc/calc/mixer.html' with  title="Изготовление" %}
+                           {% include 'calc/calc/mixer.html' with  title="Изготовление" %}
                     {% endif %}
 
                     {% if price %}
@@ -22,6 +22,9 @@
 
                     {% if corrector %}
                         {% include 'calc/calc/corrector.html' with  title="Корректор" %}
+                    {% endif %}
+                    {% if readd %}
+                        {% include 'calc/calc/re-add.html' with  title="Подгрузка" %}
                     {% endif %}
 
 

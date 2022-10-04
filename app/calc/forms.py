@@ -7,6 +7,29 @@ from calc.models import PlantProfile, PlantProfileHistory, PlantProfileShares
 from mixer.models import Mixer
 
 
+class PlantProfilePodgruzForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        current_user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+       
+        self.fields['model_from'].queryset = self.fields['model_from'].queryset.filter(user_id=current_user.id)
+        for visible in self.visible_fields():
+            if visible.name=='model_from':
+                visible.field.widget.attrs['class'] = 'form-input'
+            else:
+                visible.field.widget.attrs['class'] = 'form-check-input d-inline-block'
+     
+
+    model_from    = forms.ModelChoiceField(PlantProfile.objects.all(), required=True, label="Выберите профиль")
+    macro_udobr_persent   = forms.BooleanField(label = "Удобрения(соли) проценты макро",  required=False)
+    micro_udobr_persent   = forms.BooleanField(label = "Удобрения(соли) проценты micro",  required=False)
+    profile_macro = forms.BooleanField(label = "Профиль макро(N,P,K,...)",  required=False)
+    profile_micro = forms.BooleanField(label=  "Профиль микро(Fe, B...)",  required=False)
+    conc        = forms.BooleanField(label ="Концентраты",  required=False)
+    mixer       = forms.BooleanField(label ="Изготовление",  required=False)
+    # corrector   = forms.BooleanField(label ="Корректор")
+    prices      = forms.BooleanField(label ="Вся вкладка Цена",  required=False)
+    
 class PlantProfileAddForm(forms.ModelForm):
     class Meta:
         model = PlantProfile
@@ -32,7 +55,7 @@ class PlantProfileEditForm(forms.ModelForm):
         
         current_user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
-        self.fields['mixer'].queryset = self.fields['mixer'].queryset.filter(id=current_user.id)
+        self.fields['mixer'].queryset = self.fields['mixer'].queryset.filter(user_id=current_user.id)
         
         for visible in self.visible_fields():
             

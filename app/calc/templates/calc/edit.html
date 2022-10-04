@@ -11,20 +11,15 @@
 
     <div class="container">
 
-
         <div class="row">
             {% if form.errors %}
                 {{ form.errors }}
             {% endif %}
         </div>
 
-
         <div class="row">
             <form action="{% url "plant_profile_edit" instance.pk %}" novalidate method="post"
-                  class="m-auto d-flex flex-column" enctype="multipart/form-data"
-                  id="form-edit">
-
-
+                  class="m-auto d-flex flex-column" enctype="multipart/form-data"  id="form-edit">
                 <div class="row flex-row">
                     <div class="row">
                         <div class="mb-3  col-lg-2 p-1">
@@ -43,7 +38,7 @@
                         <div class="mb-3  col-lg-1 p-1">
                             <label for="{{ form.litres.label.id_for_label }}"
                                    class="form-label">{{ form.litres.label }}</label>
-                            {{ form.litres }}
+                                    {{ form.litres }}
                             <div class="error">{{ form.litres.errors }}</div>
                         </div>
 
@@ -114,6 +109,9 @@
                             <a class="nav-link" id="tabprice-tab" data-bs-toggle="tab" data-bs-target="#tabprice"
                                data-hash-target="#price"  role="tab" aria-controls="tabprice" aria-selected="true">Цена
                             </a>
+                            <a class="nav-link" id="tabreadd-tab" data-bs-toggle="tab" data-bs-target="#tabreadd"
+                               data-hash-target="#readd"  role="tab" aria-controls="tabreadd" aria-selected="true">Подгрузить
+                            </a>
 
                         </div>
                     </nav>
@@ -141,6 +139,9 @@
 
                         <div class="tab-pane fade " id="tabprice" role="tabpanel" aria-labelledby="tabprice-tab">
                             {% include 'calc/profile.html' with price=True title="Цена" %}
+                        </div>
+                        <div class="tab-pane fade " id="tabreadd" role="tabpanel" aria-labelledby="tabreadd-tab">
+                            {% include 'calc/profile.html' with readd=True title="Подгрузить" %}
                         </div>
 
 
