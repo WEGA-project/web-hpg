@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=root
 Group=www-data
-WorkingDirectory=/var/web-hpg/
-ExecStart=/var/web-hpg/venv/bin/gunicorn --access-logfile /var/log/gunicron/access.log --error-logfile /var/log/gunicron/error.log --workers 3 --bind 127.0.0.1:5003 project.wsgi:application
+WorkingDirectory=/var/web-hpg/web-hpg/
+ExecStart=/var/web-hpg/web-hpg/venv/bin/gunicorn --access-logfile /var/log/gunicron/access.log --error-logfile /var/log/gunicron/error.log --workers 3 --bind 127.0.0.1:5003 project.wsgi:application
 [Install]
 WantedBy=multi-user.target
