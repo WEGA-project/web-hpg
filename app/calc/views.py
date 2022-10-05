@@ -27,7 +27,7 @@ def plant_profiles(request):
     context['form'] = PlantProfileAddForm
     context['upload_form'] = PlantProfileUploadForm
     context['filter'] = FilterForm(request.GET)
-    extra_columns = [('name', django_tables2.Column(verbose_name="Название")), ('ec', django_tables2.Column()),]
+    extra_columns = [('name', django_tables2.Column(verbose_name="Название")), ('ec', django_tables2.Column(verbose_name='EC')),]
     
     columns = ['name']
     filter_form = context['filter']
@@ -469,6 +469,9 @@ def plant_profile_precalc(request, pk):
                             try:
                                 if i in ['mixer_ip', 'mixer_system_number']:
                                     setattr(pp, i, t)
+                                
+                               
+                                    
                                 else:
                                     setattr(pp, i, float(t))
                                     if i!=pushed_element:

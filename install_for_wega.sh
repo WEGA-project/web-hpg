@@ -1,5 +1,5 @@
 echo "##########################################################"
-echo "############# Install or Update WEGA-WEB-HPG #############"
+echo "############# Install or Update WEB-HPG #############"
 echo "##########################################################"
 echo "Create database"
 if [ ! -d "/var/WEGA" ] 

@@ -1330,7 +1330,10 @@ class PlantProfile(models.Model):
         for s in self.concentrate_fields:
             t = getattr(self, s)
             if t:
-                data[s] = "{:.2f}".format(t)
+                if s in ['taml', 'tbml']:
+                    data[s] = "{:.0f}".format(t)
+                else:
+                    data[s] = "{:.2f}".format(t)
 
         for k, i in self.salt_gramms.items():
             a = getattr(self, i)()
@@ -1746,7 +1749,9 @@ class PlantProfile(models.Model):
         self.calc_gml_kh2po4()
         self.calc_gml_k2so4()
         self.calc_gml_cacl2()
-            
+        
+       
+        
         if pushed_element in self.concentrate_fields:
             if hasattr(self, "calc_"+pushed_element):
                 a = getattr(self, "calc_"+pushed_element )
