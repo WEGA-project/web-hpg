@@ -110,9 +110,9 @@
                            required=""
                            id="id_mixer_system_number">
             {% if instance.mixer %}
-            <a id='id_mixer_btn_link' href="{% url "check_mixer_redirect" instance.pk %}" class="btn btn-secondary">Изготовить</a>
+            <a id='id_mixer_btn_link' href="{% url "check_mixer_redirect" instance.pk %}" target="_blank"  class="btn btn-secondary">Изготовить</a>
             {% else %}
-                <a id='id_mixer_btn_link' href="{{ instance.get_mixer_link }}" class="btn btn-secondary">Изготовить</a>
+                <a id='id_mixer_btn_link' href="{{ instance.get_mixer_link }}" target="_blank"  class="btn btn-secondary">Изготовить</a>
             {% endif %}
 
 
