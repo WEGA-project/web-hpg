@@ -6,4 +6,4 @@
   wget --no-cache -O - https://raw.githubusercontent.com/WEGA-project/web-hpg/main/install_for_wega.sh | bash 
   Внимание, для корректной работы инстаоятора нужен установленный wega-server 
 
-Версия не требующая установки вега находится по адресу https://calc.progl.su
+Версия не требующая установки вега(немного отличается по функионалу) находится по адресу https://calc.progl.su
