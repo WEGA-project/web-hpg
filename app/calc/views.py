@@ -404,6 +404,9 @@ def upload_plant_profile(request):
             try:
                 pp = PlantProfile(**create_kw)
                 pp.recalc()
+                pp.nh4_nh3_ratio = round(pp.nh4/pp.no3,2)
+ 
+
                 pp.user = request.user
                 pp.save()
             except Exception as e:
