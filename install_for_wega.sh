@@ -19,7 +19,7 @@ SQL="CREATE DATABASE IF NOT EXISTS wegacalc;"
 $MYSQL -uroot -p$DB_PASS -e "$SQL"
 echo "Install python"
 a2enmod proxy_http
-apt update
+apt update -y
 apt-get install --yes --quiet --no-install-recommends python3-pip python3-venv build-essential libssl-dev libffi-dev python3-dev libmysqlclient-dev libev-dev python3-wheel
 deactivate
 rm -R /var/web-hpg/app/venv
