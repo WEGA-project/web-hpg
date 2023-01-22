@@ -20,7 +20,7 @@ $MYSQL -uroot -p$DB_PASS -e "$SQL"
 echo "Install python"
 a2enmod proxy_http
 apt update -y
-apt-get install --yes --quiet --no-install-recommends python3-pip python3-venv build-essential libssl-dev libffi-dev python3-dev libmysqlclient-dev libev-dev python3-wheel libxml2-dev libxslt-dev libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python3-tk libharfbuzz-dev libfribidi-dev libxcb1-dev ython3-dev python3-setuptools
+apt-get install --yes --quiet --no-install-recommends  build-essential install libev-dev libffi-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjpeg8-dev liblcms2-dev libmysqlclient-dev libopenjp2-7-dev libssl-dev libtiff5-dev libwebp-dev libxcb1-dev libxml2-dev libxslt-dev python-dev python3-dev python3-pip python3-setuptools python3-tk python3-venv python3-wheel tcl8.6-dev tk8.6-dev ython3-dev zlib1g-dev
     
 deactivate
 rm -R /var/web-hpg/app/venv
