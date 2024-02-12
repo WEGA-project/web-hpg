@@ -162,7 +162,9 @@ $(document).ready(function () {
           }
        });
 
-    $('.precalc').on('change', precalc);
+    let timer;
+    $('.precalc').on('change', (e)=>{clearTimeout(timer);timer=setTimeout(precalc, 500,e)});
+
 
     function recalc(data) {
 
